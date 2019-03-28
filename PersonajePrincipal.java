@@ -1,12 +1,11 @@
 import java.util.Scanner;
 public class PersonajePrincipal extends Personaje{
   public static Scanner sc = new Scanner(System.in);
-  private Objeto[] inventario;
+  private Objeto[] inventario = new Objeto[10];
   private AtaqueEspecial[] habilidadesEspeciales = new AtaqueEspecial[3];
 
-  public PersonajePrincipal(String nombre, int experiencia, int puntosAtaque, int puntosDefensa){
-    super(nombre, experiencia, puntosAtaque, puntosDefensa);
-    inventario = new Objeto[10];
+  public PersonajePrincipal(String nombre){
+    super(nombre, 0, 0);
   }
 
   public Objeto[] getInventario(){
@@ -44,36 +43,39 @@ public class PersonajePrincipal extends Personaje{
     int[][] listaAtaques = new int[4][2];
     listaAtaques[0][0] = getAtaque();
     listaAtaques[0][1] = 10;
-    int j = 2;
+    int j = 1;
     for (int i = 0; i < 3; i++) {
       if (habilidadesEspeciales[i] != null) {
         if(habilidadesEspeciales[i].getCostoEnergetico() <= getEnergia()){
-          System.out.println(2+" "+habilidadesEspeciales[i].toString());
+          j++;
+          System.out.println(j+" "+habilidadesEspeciales[i].toString());
           //Guardar la informacion del ataque especial disponible en el arreglo
           listaAtaques[j-1][0] = habilidadesEspeciales[i].getAumentoAtaque()*getAtaque();
           listaAtaques[j-1][1] = habilidadesEspeciales[i].getCostoEnergetico();
-          j++;
         }
       }
     }
-    int eleccion = sc.nextInt()-1;sc.nextLine();
-    if (eleccion < j) {
-      //Si el usuario ingresa un numero normal
+    int eleccion = sc.nextInt()-1;
+    if (eleccion >= j) {
+      //Si el usuario ingresa un numero correcto
       eleccion = 0;
     }
     //Hacer un ataque y restarle la energia al personaje
-    setEnergia(getEnergia()-listaAtaques[eleccion][1]);
+    setEnergia(getEnergia()-listaAtaques[eleccion][1]+10);
+    System.out.println("Ataque: " + listaAtaques[eleccion][0]);
     return listaAtaques[eleccion][0];
   }
 
   public void adquirirExperiencia(int puntosExperiencia){
     setXP(puntosExperiencia+getXP());
     if (getXP() > 29) {
-      habilidadesEspeciales[2] = new AtaqueEspecial("habilidad3", 2);
-    } else if (getXP()>19) {
-      habilidadesEspeciales[1] = new AtaqueEspecial("habilidad2", 1);
-    } else if (getXP()>9) {
-      habilidadesEspeciales[0] = new AtaqueEspecial("habilidad1", 0);
+      habilidadesEspeciales[2] = new AtaqueEspecial("Habilidad 3", 2);
+    }
+    if (getXP()>19) {
+      habilidadesEspeciales[1] = new AtaqueEspecial("Habilidad 2", 1);
+    }
+    if (getXP()>9) {
+      habilidadesEspeciales[0] = new AtaqueEspecial("Habilidad 1", 0);
     }
   }
 }

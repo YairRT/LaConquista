@@ -6,11 +6,11 @@ public class Personaje {
   private int defensa;//cuanto daño restar al ataque de enemigo
   private int energia; //energia disponible para hacer ataques especiales
 
-  public Personaje(String nombre, int experiencia, int puntosAtaque, int puntosDefensa){
+  public Personaje(String nombre, int experiencia, int puntosDefensa){
     this.nombre = nombre;
     hP = 100;
     xP = experiencia;
-    ataque = puntosAtaque;
+    ataque = 10;
     defensa = puntosDefensa;
     energia = 100;
   }
@@ -24,7 +24,13 @@ public class Personaje {
   }
 
   public void setHP(int healthPoints){
-    hP = healthPoints;
+    if (healthPoints > 100) {
+      hP = 100;
+    } else if (healthPoints < 0) {
+      hP = 0;
+    } else {
+      hP = healthPoints;
+    }
   }
 
   public int getXP(){
@@ -59,7 +65,13 @@ public class Personaje {
   }
 
   public void setEnergia(int puntos){
-    energia = puntos;
+    if (puntos > 100) {
+      energia = 100;
+    } else if(puntos < 10){
+      energia = 0;
+    } else {
+      energia = puntos;
+    }
   }
 
   public String toString(){

@@ -1,10 +1,10 @@
 public class Objeto{
   private String nombreObjeto;
   private int tipoObjeto;
-  private int aumentoAtaque = 5;
-  private int aumentoDefensa = 5;
-  private int aumentoEnergia = 25;
-  private int aumentoVida = 50;
+  private int aumentoAtaque;
+  private int aumentoDefensa;
+  private int aumentoEnergia;
+  private int aumentoVida;
 
   /*Habra varios tipos de objetos que podran ser usados y tener un efecto diferente en el personaje. Con un numero se distiguiran los objetos para conocer su efecto en el personaje:
   1 arma
@@ -24,6 +24,10 @@ public class Objeto{
       default: System.out.println("Este tipo de objeto no es valido!");
       this.tipoObjeto=5;
     }
+    aumentoAtaque = 5;
+    aumentoDefensa = 5;
+    aumentoEnergia = 25;
+    aumentoVida = 50;
   }
 
   public int getAumentoAtaque(){
