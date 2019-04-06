@@ -9,7 +9,10 @@ public class Nivel extends Mapa {
   1 obstaculo
   2 objeto de inventario
   3 enemigo
+  9 heroe
   */
+
+  //Antes de entrar a un nivel tiene que guardar la ubicacion del heroe en el mapa general
 
   public Nivel(int tamanio, int itemsColocar, PersonajePrincipal persona){
     super(tamanio, itemsColocar, persona);
@@ -18,7 +21,7 @@ public class Nivel extends Mapa {
   public void moverHeroe(int desplazamientoX, int desplazamientoY){
     int nuevaX = getUbicacionHeroe()[0]+desplazamientoX;
     int nuevaY = getUbicacionHeroe()[1]+desplazamientoY;
-    switch (plano[nuevaX][nuevaY]) {
+    switch (getPlano()[nuevaX][nuevaY]) {
       case 0: setUbicacionHeroe(nuevaX, nuevaY); break;
       case 1: break;
       case 2: setUbicacionHeroe(nuevaX, nuevaY);

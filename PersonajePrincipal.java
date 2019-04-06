@@ -3,9 +3,20 @@ public class PersonajePrincipal extends Personaje{
   public static Scanner sc = new Scanner(System.in);
   private Objeto[] inventario = new Objeto[10];
   private AtaqueEspecial[] habilidadesEspeciales = new AtaqueEspecial[3];
+  private int[] ubicacionHeroeMP = new int[2];
 
   public PersonajePrincipal(String nombre){
     super(nombre, 0, 0);
+    setUbicacionHeroeMP(1, 1);
+  }
+
+  public int[] getUbiacionHeroeMP(){
+    return ubicacionHeroeMP;
+  }
+
+  public void setUbicacionHeroeMP(int i, int j){
+    ubicacionHeroeMP[0] = i;
+    ubicacionHeroeMP[1] = j;
   }
 
   public Objeto[] getInventario(){
