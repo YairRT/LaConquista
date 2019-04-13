@@ -3,6 +3,7 @@ public class PersonajePrincipal extends Personaje{
   public static Scanner sc = new Scanner(System.in);
   private Objeto[] inventario = new Objeto[10];
   private AtaqueEspecial[] habilidadesEspeciales = new AtaqueEspecial[3];
+  //arreglo para guardar la ubicacion del personajes en el mapa principal
   private int[] ubicacionHeroeMP = new int[2];
 
   public PersonajePrincipal(String nombre){

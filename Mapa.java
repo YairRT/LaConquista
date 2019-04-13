@@ -13,9 +13,13 @@ public class Mapa {
   private int numObjetos;
   private Objeto[] objetosRegados;
   private int[][] ubicacionesObjetos;
+  private int[][] ubicacionesVillanos;
   private PersonajePrincipal heroeMapa;
-
+  public int numVillanos;
   private static Label[][] botonesMapa;
+  private Villano[] villanosRegados;
+  int nuevaX;
+  int nuevaY;
 
   /*
   Valores del arreglo:
@@ -25,7 +29,8 @@ public class Mapa {
   9 heroe
   */
 
-  public Mapa(int tamanio, int itemsColocar, PersonajePrincipal heroe){
+  public Mapa(int tamanio, int itemsColocar, PersonajePrincipal heroe, int numVillanos){
+	  this.numVillanos = numVillanos;
     heroeMapa = heroe;
     plano = new int[tamanio][tamanio];
     ubicacionHeroe[0] = heroe.getUbiacionHeroeMP()[1]; //x
@@ -40,7 +45,9 @@ public class Mapa {
     }
     numObjetos =itemsColocar;
     objetosRegados = new Objeto[numObjetos];
+	villanosRegados = new Villano[numVillanos];
     ubicacionesObjetos = new int[numObjetos][2];
+	ubicacionesVillanos = new int[numVillanos][2];
     for (int i = 0; i < itemsColocar; i++) {
       int ubiSecretaI; int ubiSecretaJ;
       do {
@@ -52,6 +59,17 @@ public class Mapa {
       plano[ubiSecretaI][ubiSecretaJ] = 2;
       objetosRegados[i] = itemAleatorio();
     }
+	for(int i = 0;i<numVillanos;i++){
+		int ubiSecretaI; int ubiSecretaJ;
+		do{
+		ubiSecretaI = (int)Math.floor(Math.random()*tamanio);
+		ubiSecretaJ = (int)Math.floor(Math.random()*tamanio);
+	} while (plano[ubiSecretaI][ubiSecretaJ] != (0) && plano[ubiSecretaI][ubiSecretaJ] != (2));
+	ubicacionesVillanos[i][0] = ubiSecretaJ;
+    ubicacionesVillanos[i][1] = ubiSecretaI;
+	plano[ubiSecretaI][ubiSecretaJ] = 3;
+	villanosRegados[i] = crearVillano("Villano", "Ataque");
+	}
   }
 
   public static Objeto itemAleatorio(){
@@ -75,9 +93,15 @@ public class Mapa {
   public int getNumObjetos(){
     return numObjetos;
   }
+  public int getNumVillanos(){
+	  return numVillanos;
+  }
 
   public int getUbicacionObjeto(int indice1, int indice2){
     return ubicacionesObjetos[indice1][indice2];
+  }
+  public int getUbicacionVillanos(int indice1, int indice2){
+	return ubicacionesVillanos[indice1][indice2];
   }
 
   public Objeto[] getObjetosRegados(){
@@ -94,8 +118,8 @@ public class Mapa {
   }
 
   public void moverHeroe(int desplazamientoX, int desplazamientoY){
-    int nuevaX = getUbicacionHeroe()[0]+desplazamientoX;
-    int nuevaY = getUbicacionHeroe()[1]+desplazamientoY;
+    nuevaX = getUbicacionHeroe()[0]+desplazamientoX;
+    nuevaY = getUbicacionHeroe()[1]+desplazamientoY;
     switch (plano[nuevaY][nuevaX]) {
       case 0: cambiarHeroePlano(nuevaY, nuevaX); setUbicacionHeroe(nuevaX, nuevaY); break;
       case 1: break;
@@ -108,8 +132,17 @@ public class Mapa {
           indiceObjeto = i;
         }
       }
-      getHeroeMapa().addInventario(getObjetosRegados()[indiceObjeto]);break;
-    }
+	  getHeroeMapa().addInventario(getObjetosRegados()[indiceObjeto]);break;
+	  case 3: cambiarHeroePlano(nuevaX, nuevaY);setUbicacionHeroe(nuevaX, nuevaY);
+	  int indiceVillano=0;
+	  botonesMapa[getUbicacionHeroe()[1]][getUbicacionHeroe()[0]].getStyleClass().remove("fondo-azul");
+	  System.out.println("Has encontrado un villano");
+	  for(int i = 0; i < getNumVillanos(); i++) {
+        if (getUbicacionVillanos(i, 0) == nuevaX && getUbicacionVillanos(i, 1) == nuevaY) {
+          break;
+        }
+		}
+	}
   }
 
   public void cambiarHeroePlano(int i, int j){
@@ -126,7 +159,7 @@ public class Mapa {
     }
   }
 
-  public void start(Stage primaryStage){
+  public Scene createMapa(){
     GridPane grid = new GridPane();
     Scene scene = new Scene(grid);
     scene.getStylesheets().add("estilos.css");
@@ -139,7 +172,8 @@ public class Mapa {
         switch (getPlano()[i][j]) {
           case 1: botonesMapa[i][j].getStyleClass().add("fondo-negro"); break;
           case 2: botonesMapa[i][j].getStyleClass().add("fondo-rojo"); break;
-          case 9: botonesMapa[i][j].getStyleClass().add("fondo-verde");
+		  case 3: botonesMapa[i][j].getStyleClass().add("fondo-azul");break;
+          case 9: botonesMapa[i][j].getStyleClass().add("fondo-verde");break;
           default: botonesMapa[i][j].getStyleClass().add("fondo-blanco");
         }
       }
@@ -160,7 +194,18 @@ public class Mapa {
         botonesMapa[y][x].getStyleClass().add("fondo-verde");
       }
     });
-    primaryStage.setScene(scene);
-    primaryStage.show();
+    return scene;
   }
+   private Villano crearVillano(String nombre, String nombreAtaque){
+    int puntosDefensa = (int)Math.ceil(Math.random()*5);
+    return new Villano(nombre, getHeroeMapa().getXP(), puntosDefensa, nombreAtaque);
+  }
+  
+  public int getNuevaX(){
+	  return nuevaX;
+  }
+  public int getNuevaY(){
+	  return nuevaY;
+  }
+
 }

@@ -1,6 +1,8 @@
 public class AtaqueEspecial{
   private String nombre;
+  /*Cada personaje tiene un nivel de energia para limitar el numero de ataques especiales que puede hacer, esta definido con costoEnergetico*/
   private int costoEnergetico;
+  /*aumentoAtaque es el numero por el que se va a multiplicar el ataque normal del personaje que lo tenga*/
   private int aumentoAtaque;
 
   public AtaqueEspecial(String nombre, int indice){

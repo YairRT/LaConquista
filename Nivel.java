@@ -1,7 +1,5 @@
 import java.util.Scanner;
 public class Nivel extends Mapa {
-  Villano[] villanos;
-  int[][] ubicacionVillanos;
 
   /*
   Valores del arreglo:
@@ -14,8 +12,8 @@ public class Nivel extends Mapa {
 
   //Antes de entrar a un nivel tiene que guardar la ubicacion del heroe en el mapa general
 
-  public Nivel(int tamanio, int itemsColocar, PersonajePrincipal persona){
-    super(tamanio, itemsColocar, persona);
+  public Nivel(int tamanio, int itemsColocar, PersonajePrincipal persona, int numVillanos){
+    super(tamanio, itemsColocar, persona, numVillanos);
   }
 
   public void moverHeroe(int desplazamientoX, int desplazamientoY){
@@ -32,57 +30,15 @@ public class Nivel extends Mapa {
         }
       }
       getHeroeMapa().addInventario(getObjetosRegados()[indiceObjeto]);
-    }
-  }
-
-  public static boolean comenzarPelea(PersonajePrincipal heroe, Villano enemigo){
-    Scanner sc = new Scanner(System.in);
-    if (Math.random() > 0.5) {
-      System.out.println("Es el turno de " + enemigo.getNombre());
-      System.out.println(enemigo.toString());
-      heroe.recibirAtaque(enemigo.atacar());
-    }
-    while (heroe.getHP() > 0 && enemigo.getHP() > 0) {
-      System.out.println("Es el turno de " + heroe.getNombre());
-      System.out.println(heroe.toString());
-      System.out.println("Deseas atacar o abrir inventario: [A / I]");
-      String respuesta = sc.next(); sc.nextLine();
-      if (respuesta.equals("I")) {
-        while(respuesta != "11"){
-          Objeto[] inventario = heroe.getInventario();
-          System.out.println("Ingresa el numero del objeto a utilizar o ingresa 11 para salir.");
-          int inventarioVacio = 0;
-          for (int i = 0; i < inventario.length; i++) {
-            if (inventario[i] != null) {
-              if (inventario[i].getTipoObjeto() != 5) {
-                System.out.println(i + inventario[i].toString());
-              }
-            } else {
-              inventarioVacio++;
-            }
-          }
-          if (inventarioVacio==10) {
-            System.out.println("Inventario vacio. Ingresa 11 para continuar");
-          }
-          respuesta = sc.next();sc.nextLine();
-          if (respuesta.equals("11")) {
-            break;
-          }
-          try {
-            heroe.usarObjeto(Integer.parseInt(respuesta));
-          } catch(NumberFormatException e){
-            continue;
-          }
+	  break;
+	  case 3: setUbicacionHeroe(nuevaX, nuevaY);
+	  int indiceVillano=0;
+	  for(int i = 0; i < getNumVillanos(); i++) {
+        if (getUbicacionVillanos(i, 0) == nuevaX && getUbicacionVillanos(i, 1) == nuevaY) {
+          break;
         }
       }
-      enemigo.recibirAtaque(heroe.atacar());
-      if (enemigo.getHP() <= 0) {
-        return true;
-      }
-      System.out.println("Es el turno de " + enemigo.getNombre());
-      System.out.println(enemigo.toString());
-      heroe.recibirAtaque(enemigo.atacar());
     }
-    return false;
   }
+ 
 }
