@@ -126,7 +126,7 @@ public class Mapa {
     }
   }
 
-  public void start(Stage primaryStage){
+  public Scene createMapa(){
     GridPane grid = new GridPane();
     Scene scene = new Scene(grid);
     scene.getStylesheets().add("estilos.css");
@@ -160,7 +160,6 @@ public class Mapa {
         botonesMapa[y][x].getStyleClass().add("fondo-verde");
       }
     });
-    primaryStage.setScene(scene);
-    primaryStage.show();
+    return scene;
   }
 }
