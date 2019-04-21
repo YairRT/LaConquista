@@ -53,10 +53,10 @@ public class Main extends Application {
       primaryStage.setScene(mapaPrincipal.createMapa());
 		}
 		});
-		int[][] plano = mapaPrincipal.getPlano();
+		//int[][] plano = mapaPrincipal.getPlano();
 		
-		if(plano[mapaPrincipal.getNuevaX()][mapaPrincipal.getNuevaY()]==3){			
+		/*if(plano[mapaPrincipal.getNuevaX()][mapaPrincipal.getNuevaY()]==3){			
 			System.out.println("Hay un batalla ");
-		}
+		}*/
   }
 }
