@@ -1,0 +1,26 @@
+.fondo-negro {
+  -fx-background-color: #000;
+}
+
+.fondo-rojo {
+  -fx-background-color: #dc143c;
+}
+
+.fondo-verde {
+  -fx-background-color: #006400 !important;
+}
+
+.fondo-blanco {
+  -fx-background-color: #fff;
+}
+
+.fondo-azul {
+  -fx-background-color: #6A5ACD;
+
+Label {
+  -fx-font-size: 16px;
+}
+
+GridPane {
+  -fx-background-image: url("../../../Pictures/StoryboardGoSkate.jpg");
+}
