@@ -1,3 +1,4 @@
+import java.util.Scanner;
 import javafx.application.Application;
 import javafx.scene.layout.*;
 import javafx.scene.*;
@@ -9,6 +10,7 @@ public class Battle {
 
 	private PersonajePrincipal heroe;
 	private Villano enemigo;
+	private Scene battleScene;
 
 	public Battle(PersonajePrincipal heroe, Villano enemigo){
 		this.heroe = heroe;
@@ -19,11 +21,12 @@ public class Battle {
 		BorderPane bp = new BorderPane();
 		Label lb1 = new Label(heroe.getNombre());
 		Label lb2 = new Label(enemigo.getNombre());
-		gp.setLeft(lb1);
-		gp.setRight(lb2);
+		bp.setLeft(lb1);
+		bp.setRight(lb2);
 
 		//Se crean los botones para poder atacar al adversario
 		Button normalAttack = new Button("Ataque normal");
+		return battleScene;
 	}
 
 	public static boolean comenzarPelea(PersonajePrincipal heroe, Villano enemigo){

@@ -1,7 +1,5 @@
 import java.util.Scanner;
 public class Nivel extends Mapa {
-  Villano[] villanos;
-  int[][] ubicacionVillanos;
 
   /*
   Valores del arreglo:
@@ -15,12 +13,7 @@ public class Nivel extends Mapa {
   //Antes de entrar a un nivel tiene que guardar la ubicacion del heroe en el mapa general
 
   public Nivel(int tamanio, int itemsColocar, PersonajePrincipal persona, int numVillanos){
-    super(tamanio, itemsColocar, persona);
-  }
-
-  private Villano crearVillano(String nombre, String nombreAtaque){
-    int puntosDefensa = (int)Math.ceil(Math.random()*5);
-    return new Villano(nombre, getHeroeMapa().getXP(), puntosDefensa, nombreAtaque);
+    super(tamanio, itemsColocar, persona, numVillanos);
   }
 
   public void moverHeroe(int desplazamientoX, int desplazamientoY){
@@ -37,6 +30,15 @@ public class Nivel extends Mapa {
         }
       }
       getHeroeMapa().addInventario(getObjetosRegados()[indiceObjeto]);
+	  break;
+	  case 3: setUbicacionHeroe(nuevaX, nuevaY);
+	  int indiceVillano=0;
+	  for(int i = 0; i < getNumVillanos(); i++) {
+        if (getUbicacionVillanos(i, 0) == nuevaX && getUbicacionVillanos(i, 1) == nuevaY) {
+          break;
+        }
+      }
     }
   }
+ 
 }

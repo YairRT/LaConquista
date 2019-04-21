@@ -31,7 +31,7 @@ public class Main extends Application {
         System.out.println("Boton guerrero presionado");
 				menu.definirHeroe("guerrero");
         heroe = menu.getHeroe();
-        mapaPrincipal = new Mapa(10, 5, heroe);
+        mapaPrincipal = new Mapa(10, 5, heroe,10);
         primaryStage.setScene(mapaPrincipal.createMapa());
 			}
 		});
@@ -40,7 +40,7 @@ public class Main extends Application {
         System.out.println("Boton tlatoani presionado");
         menu.definirHeroe("tlatoani");
         heroe = menu.getHeroe();
-        mapaPrincipal = new Mapa(10, 5, heroe);
+        mapaPrincipal = new Mapa(10, 5, heroe,10);
         primaryStage.setScene(mapaPrincipal.createMapa());
       }
 		});
@@ -49,9 +49,14 @@ public class Main extends Application {
       System.out.println("Boton sacerdote presionado");
 			menu.definirHeroe("sacerdote");
       heroe = menu.getHeroe();
-      mapaPrincipal = new Mapa(10, 5, heroe);
+      mapaPrincipal = new Mapa(10, 5, heroe,10);
       primaryStage.setScene(mapaPrincipal.createMapa());
 		}
 		});
+		int[][] plano = mapaPrincipal.getPlano();
+		
+		if(plano[mapaPrincipal.getNuevaX()][mapaPrincipal.getNuevaY()]==3){			
+			System.out.println("Hay un batalla ");
+		}
   }
 }
