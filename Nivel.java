@@ -12,8 +12,8 @@ public class Nivel extends Mapa {
 
   //Antes de entrar a un nivel tiene que guardar la ubicacion del heroe en el mapa general
 
-  public Nivel(int tamanio, int itemsColocar, PersonajePrincipal persona, int numVillanos){
-    super(tamanio, itemsColocar, persona, numVillanos);
+  public Nivel(int tamanio, int itemsColocar, PersonajePrincipal persona, int numVillanos, Main main){
+    super(tamanio, itemsColocar, persona, numVillanos, main);
   }
 
   public void moverHeroe(int desplazamientoX, int desplazamientoY){

@@ -18,8 +18,12 @@ public class Mapa {
   public int numVillanos;
   private static Label[][] botonesMapa;
   private Villano[] villanosRegados;
-  int nuevaX;
-  int nuevaY;
+  private int nuevaX;
+  private int nuevaY;
+  private int tamanio;
+  private Battle battle;
+  private int villanosEnfrentados = 0;
+  private Main main;
 
   /*
   Valores del arreglo:
@@ -29,8 +33,10 @@ public class Mapa {
   9 heroe
   */
 
-  public Mapa(int tamanio, int itemsColocar, PersonajePrincipal heroe, int numVillanos){
+  public Mapa(int tamanio, int itemsColocar, PersonajePrincipal heroe, int numVillanos, Main main){
+	  this.main = main;
 	  this.numVillanos = numVillanos;
+	  this.tamanio = tamanio;
     heroeMapa = heroe;
     plano = new int[tamanio][tamanio];
     ubicacionHeroe[0] = heroe.getUbiacionHeroeMP()[1]; //x
@@ -136,13 +142,20 @@ public class Mapa {
 	  case 3: cambiarHeroePlano(nuevaX, nuevaY);setUbicacionHeroe(nuevaX, nuevaY);
 	  int indiceVillano=0;
 	  botonesMapa[getUbicacionHeroe()[1]][getUbicacionHeroe()[0]].getStyleClass().remove("fondo-azul");
-	  System.out.println("Has encontrado un villano");
 	  for(int i = 0; i < getNumVillanos(); i++) {
         if (getUbicacionVillanos(i, 0) == nuevaX && getUbicacionVillanos(i, 1) == nuevaY) {
           break;
         }
-		}
+	  }
+	  break;
 	}
+	if(plano[nuevaY][nuevaX]==3){
+		main.setSceneBatalla(heroeMapa,getVillano(), main);
+	}
+  }
+  
+  public Villano getVillano(){
+	  return villanosRegados[villanosEnfrentados++];
   }
 
   public void cambiarHeroePlano(int i, int j){

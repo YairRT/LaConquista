@@ -6,6 +6,15 @@ import javafx.stage.*;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.event.*;
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.scene.control.Label;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
+import javafx.collections.ObservableList;
+
 public class Battle {
 
 	private PersonajePrincipal heroe;
@@ -26,8 +35,10 @@ public class Battle {
 
 		//Se crean los botones para poder atacar al adversario
 		Button normalAttack = new Button("Ataque normal");
+		battleScene = new Scene(bp);
 		return battleScene;
 	}
+	/*
 
 	public static boolean comenzarPelea(PersonajePrincipal heroe, Villano enemigo){
     Scanner sc = new Scanner(System.in);
@@ -78,5 +89,5 @@ public class Battle {
       heroe.recibirAtaque(enemigo.atacar());
     }
     return false;
-  }
+  } */
 }
